@@ -11,6 +11,6 @@ namespace :data do
 
     paprika_photos = "#{paprika_data_dir}/Photos"
     app_photos = Rails.root.join("app/assets/images")
-    system("cp -r #{paprika_photos} #{app_photos}")
+    system("cp -r #{paprika_photos}/* #{app_photos}")
   end
 end

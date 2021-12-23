@@ -1,11 +1,17 @@
-= link_to 'New Recipe', new_recipe_path
-
-table.table
+table.table.table-borderless
   thead
     tr
       th
+      th Name
 
   tbody
     - @recipes.each do |recipe|
       tr
-        td = link_to recipe.name, recipe
+        td = image_tag(recipe.feature_photo, class: "img-fluid img-thumbnail", style: "width: 30%;") if recipe.feature_photo.present?
+        td
+          = link_to recipe.name, recipe
+          p
+            - recipe.rating.times do
+              i.bi-star-fill
+            - recipe.unfilled_stars.times do
+              i.bi-star

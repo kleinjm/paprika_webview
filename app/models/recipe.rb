@@ -3,6 +3,8 @@
 class Recipe < ApplicationRecord
   self.table_name = "ZRECIPE"
 
+  MAX_STARS = 5
+
   alias_attribute :cooktime, :ZCOOKTIME
   alias_attribute :created, :ZCREATED
   alias_attribute :deleted, :ZINTRASH
@@ -15,7 +17,6 @@ class Recipe < ApplicationRecord
   alias_attribute :notes, :ZNOTES
   alias_attribute :nutritionalinfo, :ZNUTRITIONALINFO
   alias_attribute :photo, :ZPHOTO
-  alias_attribute :photohash, :ZPHOTOHASH
   alias_attribute :photolarge, :ZPHOTOLARGE
   alias_attribute :preptime, :ZPREPTIME
   alias_attribute :rating, :ZRATING
@@ -26,8 +27,18 @@ class Recipe < ApplicationRecord
   alias_attribute :source, :ZSOURCE
   alias_attribute :sourceurl, :ZSOURCEURL
   alias_attribute :status, :ZSTATUS
-  alias_attribute :synchash, :ZSYNCHASH
   alias_attribute :totaltime, :ZTOTALTIME
+  alias_attribute :uid, :ZUID
 
   default_scope { where(deleted: false) }
+
+  def feature_photo
+    return nil if photo.blank?
+
+    "#{uid}/#{photo}"
+  end
+
+  def unfilled_stars
+    MAX_STARS - rating
+  end
 end
