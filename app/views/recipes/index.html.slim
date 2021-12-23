@@ -1,0 +1,11 @@
+= link_to 'New Recipe', new_recipe_path
+
+table.table
+  thead
+    tr
+      th
+
+  tbody
+    - @recipes.each do |recipe|
+      tr
+        td = link_to recipe.name, recipe
