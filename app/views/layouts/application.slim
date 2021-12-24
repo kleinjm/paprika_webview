@@ -12,7 +12,9 @@ html
   body
     .container-fluid
       .row.flex-nowrap
-        .col-auto.col-md-3.col-xl-2.px-sm-2.px-0.bg-dark
-          = render "layouts/categories"
-        .col.py-3
-          = yield
+        .col-auto.col-md-3.col-xl-2.px-sm-2.px-0.bg-light
+          = render "layouts/navbar"
+        .col
+          .row
+            .col-md-10.offset-md-1
+              = yield

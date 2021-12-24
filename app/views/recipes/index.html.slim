@@ -1,25 +1,26 @@
-.row
-  .col-md-10.offset-md-1
-    table.table.table-borderless
-      thead
-        tr
-          th
-          th
-          th
+table.table.table-borderless
+  thead
+    tr
+      th
+      th
+      th
 
-      tbody
-        - @recipes.each do |recipe|
-          tr
-            td
-              = link_to recipe do
-                = image_tag(recipe.feature_photo, class: "img-fluid img-thumbnail", style: "width: 40%;") if recipe.feature_photo.present?
-            td
-              = link_to recipe.name, recipe
-              p
-                = recipe.categories.pluck(:name).join(", ")
-            td
-              p style="min-width: 85px;"
-                - recipe.rating.times do
-                  i.bi-star-fill
-                - recipe.unfilled_stars.times do
-                  i.bi-star
+  tbody
+    - @recipes.each do |recipe|
+      tr
+        td
+          = link_to recipe do
+            = image_tag(recipe.feature_photo, class: "img-fluid img-thumbnail", style: "width: 40%;") if recipe.feature_photo.present?
+        td
+          = link_to recipe.name, recipe, class: "h5 text-decoration-none link-primary"
+          p.text-muted
+            = recipe.categories.pluck(:name).join(", ")
+        td
+          p style="min-width: 85px;"
+            - if recipe.rating.zero?
+              p N/A
+            - else
+              - recipe.rating.times do
+                i.bi-star-fill
+              - recipe.unfilled_stars.times do
+                i.bi-star

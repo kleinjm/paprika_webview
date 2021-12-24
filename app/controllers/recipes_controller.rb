@@ -3,12 +3,12 @@ class RecipesController < ApplicationController
 
   # GET /recipes or /recipes.json
   def index
-    @recipes =
-      if category_id.present?
-        Recipe.includes(:categories).where(category_recipes: { category_id: category_id })
-      else
-        Recipe.includes(:categories).all
-      end
+    @recipes = Recipe.includes(:categories).order(rating: :desc)
+    if category_id.present?
+      @recipes = @recipes.where(category_recipes: { category_id: category_id })
+    else
+      @recipes = @recipes.all
+    end
   end
 
   # GET /recipes/1 or /recipes/1.json

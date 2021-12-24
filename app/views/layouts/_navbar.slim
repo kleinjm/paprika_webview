@@ -1,0 +1,8 @@
+.d-flex.flex-column.align-items-center.align-items-sm-start.px-3.pt-2.min-vh-100
+  = link_to root_path, class: "d-flex align-items-center pb-3 mt-3 mb-md-0 me-md-auto text-decoration-none" do
+    h4.d-none.d-sm-inline Paprika Webview
+  ul#menu.nav.nav-pills.flex-column.mb-sm-auto.mb-0.align-items-center.align-items-sm-start
+    - Category.order(:name).each do |category|
+      li.nav-item
+        = link_to recipes_path(category_id: category.id), class: "nav-link align-middle px-0 link-secondary py-1" do
+          span.ms-1.d-none.d-sm-inline= category.name
