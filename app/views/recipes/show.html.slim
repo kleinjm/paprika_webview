@@ -1,3 +1,28 @@
 p#notice = notice
 
+= image_tag(@recipe.feature_photo, class: "img-fluid rounded")
 h1= @recipe.name
+
+br
+
+- if @recipe.description.present?
+  h4 Description
+  p= @recipe.description
+  br
+
+- if @recipe.notes.present?
+  h4 Notes
+  p= @recipe.notes
+  br
+
+.row
+  .col-md-4
+    h5 Ingredients
+    ul
+      - @recipe.ingredients.each do |ingredient|
+        li= ingredient
+  .col-md-8
+    h5 Directions
+    ol
+      - @recipe.steps.each do |step|
+        li= step

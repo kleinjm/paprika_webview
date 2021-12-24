@@ -13,7 +13,7 @@ class Recipe < ApplicationRecord
   alias_attribute :difficulty, :ZDIFFICULTY
   alias_attribute :directions, :ZDIRECTIONS
   alias_attribute :imageurl, :ZIMAGEURL
-  alias_attribute :ingredients, :ZINGREDIENTS
+  alias_attribute :ingredients_string, :ZINGREDIENTS
   alias_attribute :name, :ZNAME
   alias_attribute :notes, :ZNOTES
   alias_attribute :nutritionalinfo, :ZNUTRITIONALINFO
@@ -43,5 +43,13 @@ class Recipe < ApplicationRecord
 
   def unfilled_stars
     MAX_STARS - rating
+  end
+
+  def ingredients
+    ingredients_string.split("\n")
+  end
+
+  def steps
+    directions.split("\n").reject!(&:blank?)
   end
 end
