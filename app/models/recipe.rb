@@ -3,7 +3,8 @@
 class Recipe < ApplicationRecord
   self.table_name = "ZRECIPE"
 
-  MAX_STARS = 5
+  has_many :category_recipes, foreign_key: "Z_12RECIPES"
+  has_many :categories, through: :category_recipes
 
   alias_attribute :cooktime, :ZCOOKTIME
   alias_attribute :created, :ZCREATED
@@ -31,6 +32,8 @@ class Recipe < ApplicationRecord
   alias_attribute :uid, :ZUID
 
   default_scope { where(deleted: false) }
+
+  MAX_STARS = 5
 
   def feature_photo
     return nil if photo.blank?

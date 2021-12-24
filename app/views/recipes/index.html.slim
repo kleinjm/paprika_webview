@@ -1,17 +1,25 @@
-table.table.table-borderless
-  thead
-    tr
-      th
-      th Name
+.row
+  .col-md-10.offset-md-1
+    table.table.table-borderless
+      thead
+        tr
+          th
+          th
+          th
 
-  tbody
-    - @recipes.each do |recipe|
-      tr
-        td = image_tag(recipe.feature_photo, class: "img-fluid img-thumbnail", style: "width: 30%;") if recipe.feature_photo.present?
-        td
-          = link_to recipe.name, recipe
-          p
-            - recipe.rating.times do
-              i.bi-star-fill
-            - recipe.unfilled_stars.times do
-              i.bi-star
+      tbody
+        - @recipes.each do |recipe|
+          tr
+            td
+              = link_to recipe do
+                = image_tag(recipe.feature_photo, class: "img-fluid img-thumbnail", style: "width: 40%;") if recipe.feature_photo.present?
+            td
+              = link_to recipe.name, recipe
+              p
+                = recipe.categories.pluck(:name).join(", ")
+            td
+              p style="min-width: 85px;"
+                - recipe.rating.times do
+                  i.bi-star-fill
+                - recipe.unfilled_stars.times do
+                  i.bi-star

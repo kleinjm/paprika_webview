@@ -3,7 +3,12 @@ class RecipesController < ApplicationController
 
   # GET /recipes or /recipes.json
   def index
-    @recipes = Recipe.all
+    @recipes =
+      if category_id.present?
+        Recipe.includes(:categories).where(category_recipes: { category_id: category_id })
+      else
+        Recipe.includes(:categories).all
+      end
   end
 
   # GET /recipes/1 or /recipes/1.json
@@ -66,5 +71,9 @@ class RecipesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def recipe_params
       params.fetch(:recipe, {})
+    end
+
+    def category_id
+      params.permit(:category_id)[:category_id]
     end
 end
