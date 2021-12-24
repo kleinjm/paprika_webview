@@ -13,4 +13,12 @@ namespace :data do
     app_photos = Rails.root.join("app/assets/images")
     system("cp -r #{paprika_photos}/* #{app_photos}")
   end
+
+  desc "Copy development data to production"
+  task sync_dev_to_prod: :environment do
+    dev_db = Rails.root.join("db/development.sqlite3")
+    prod_db = Rails.root.join("db/production.sqlite3")
+
+    system("cp #{dev_db} #{prod_db}")
+  end
 end
